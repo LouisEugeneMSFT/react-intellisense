@@ -25,9 +25,13 @@ const scopes = ['variables', 'expressions', 'scopes'];
 
 const TEXTFIELD_ID = 'inmemory://intellisens/1';
 
+const hasPort = !!window.location.port;
+
 let url = window.location.origin
   .replace(/^https/, 'wss')
   .replace(/^http/, 'ws');
+
+url = hasPort ? url.replace('3006', '3000') : url;
 url = `${url}/intellisense-language-server`;
 
 function App() {
