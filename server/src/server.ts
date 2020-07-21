@@ -11,12 +11,11 @@ import { getVariablesResolver } from './resolvers/variables';
 import { attachLSPServer } from './utils/serverUtils';
 
 const app = express();
-const port = process.env.PORT || 9000;
+const port = 3000;
 const server = app.listen(port);
 
 app.use(express.static(path.join(__dirname, '../../client/build')));
 app.get('/', function (_req, res) {
-  console.log('test');
   res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
 });
 

@@ -11,11 +11,10 @@ const intellisenseServer_1 = require("./intellisenseServer");
 const variables_1 = require("./resolvers/variables");
 const serverUtils_1 = require("./utils/serverUtils");
 const app = express();
-const port = 9000;
-const server = app.listen(process.env.PORT || port);
+const port = 3000;
+const server = app.listen(port);
 app.use(express.static(path.join(__dirname, '../../client/build')));
 app.get('/', function (_req, res) {
-    console.log('test');
     res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
 });
 const wss = new ws.Server({
