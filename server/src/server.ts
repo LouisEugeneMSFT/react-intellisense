@@ -13,6 +13,7 @@ import { attachLSPServer } from './utils/serverUtils';
 const app = express();
 const port = process.env.PORT || 3000;
 const server = app.listen(port);
+console.log(port);
 
 app.use(express.static(path.join(__dirname, '../../client/build')));
 app.get('/', function (_req, res) {
