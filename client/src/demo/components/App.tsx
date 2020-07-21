@@ -26,7 +26,7 @@ const scopes = ['variables', 'expressions', 'scopes'];
 const TEXTFIELD_ID = 'inmemory://intellisens/1';
 
 const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-const wsPort = process.env.PORT || 3000;
+const wsPort = window.location.port || 3000;
 const url = `${protocol}://${window.location.hostname}:${wsPort}/intellisense-language-server`;
 
 function App() {
