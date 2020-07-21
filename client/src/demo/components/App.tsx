@@ -25,9 +25,10 @@ const scopes = ['variables', 'expressions', 'scopes'];
 
 const TEXTFIELD_ID = 'inmemory://intellisens/1';
 
-const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-const wsPort = 1337;
-const url = `${protocol}://${window.location.hostname}:${wsPort}/intellisense-language-server`;
+let url = window.location.origin
+  .replace(/^https/, 'wss')
+  .replace(/^http/, 'ws');
+url = `${url}/intellisense-language-server`;
 
 function App() {
   const [fieldType, setFieldType] = React.useState(fieldTypes[0]);
