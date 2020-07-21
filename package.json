@@ -1,0 +1,25 @@
+{
+  "name": "react-intellisense",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "dependencies": {
+    "concurrently": "^5.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start:dev": "concurrently \"yarn server:dev\" \"yarn client:dev\"",
+    "server:dev": "cd server && yarn dev",
+    "client:dev": "cd client && yarn dev",
+    "build": "concurrently \"yarn server:build\" \"yarn client:build\"",
+    "server:build": "cd server && yarn build",
+    "client:build": "cd client && yarn build",
+    "start": "cd server && yarn start"
+  },
+  "author": "Louis Eugene",
+  "license": "MIT"
+}
