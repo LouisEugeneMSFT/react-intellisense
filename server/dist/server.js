@@ -11,7 +11,7 @@ const intellisenseServer_1 = require("./intellisenseServer");
 const variables_1 = require("./resolvers/variables");
 const serverUtils_1 = require("./utils/serverUtils");
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const server = app.listen(port);
 app.use(express.static(path.join(__dirname, '../../client/build')));
 app.get('/', function (_req, res) {

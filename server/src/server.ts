@@ -11,7 +11,7 @@ import { getVariablesResolver } from './resolvers/variables';
 import { attachLSPServer } from './utils/serverUtils';
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const server = app.listen(port);
 
 app.use(express.static(path.join(__dirname, '../../client/build')));
