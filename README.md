@@ -1,6 +1,10 @@
 # React-intellisense
 React intellisense component communicating with a LSP server
 
+## Demo
+
+https://react-intellisense.herokuapp.com/
+
 ## Get started
 
 ```
