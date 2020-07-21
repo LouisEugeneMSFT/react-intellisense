@@ -16,5 +16,5 @@ To launch the app in dev mode:
 
 To launch the app:
 - yarn build // builds the project
-- yarn start // starts the project (http://localhost:9000/)
+- yarn start // starts the project (http://localhost:3000/)
 ```
