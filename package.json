@@ -20,6 +20,9 @@
     "client:build": "cd client && yarn build",
     "start": "cd server && yarn start"
   },
+  "engines": {
+    "node": "12.14.1"
+  },
   "author": "Louis Eugene",
   "license": "MIT"
 }

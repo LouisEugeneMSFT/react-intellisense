@@ -24,7 +24,8 @@ const fieldTypes = [
 const scopes = ['variables', 'expressions', 'scopes'];
 
 const TEXTFIELD_ID = 'inmemory://intellisens/1';
-const url = `ws://${window.location.hostname}:9000/intellisense-language-server`;
+const port = process.env.PORT || 9000;
+const url = `ws://${window.location.hostname}:${port}/intellisense-language-server`;
 
 function App() {
   const [fieldType, setFieldType] = React.useState(fieldTypes[0]);
