@@ -1,6 +1,10 @@
 # React-intellisense
 React intellisense component communicating with a LSP server
 
+## Demo
+
+https://react-intellisense.herokuapp.com/
+
 ## Get started
 
 ```
@@ -12,5 +16,5 @@ To launch the app in dev mode:
 
 To launch the app:
 - yarn build // builds the project
-- yarn start // starts the project (http://localhost:9000/)
+- yarn start // starts the project (http://localhost:3000/)
 ```
