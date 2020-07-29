@@ -21,7 +21,7 @@
     "start": "cd server && yarn start"
   },
   "engines": {
-    "node": "12.14.1"
+    "node": "12.18.3"
   },
   "author": "Louis Eugene",
   "license": "MIT"

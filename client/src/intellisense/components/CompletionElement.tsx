@@ -7,22 +7,37 @@ import {
   DirectionalHint,
   TooltipHost,
 } from 'office-ui-fabric-react/lib/Tooltip';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { CompletionItem, MarkupContent } from 'vscode-languageserver-types';
 
 type FuseJsMatch = { indices: number[][]; value: string; key: string };
+
+const styles: Record<string, CSSProperties> = {
+  completionElement: {
+    height: '32px',
+    cursor: 'pointer',
+    padding: '0 4px',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  selectedElement: { backgroundColor: '#ddd' },
+  text: { fontSize: '15px' },
+  icon: { marginRight: '5px' },
+};
 
 const renderIcon = (kind: CompletionItemKind | undefined): JSX.Element => {
   let icon: JSX.Element = <> </>;
 
   switch (kind) {
     case CompletionItemKind.Function:
-      icon = <FontIcon iconName="Variable" style={{ marginRight: '5px' }} />;
+      icon = <FontIcon iconName="Variable" style={styles.icon} />;
       break;
     case CompletionItemKind.Variable:
-      icon = (
-        <FontIcon iconName="VariableGroup" style={{ marginRight: '5px' }} />
-      );
+      icon = <FontIcon iconName="VariableGroup" style={styles.icon} />;
+      break;
+    case CompletionItemKind.Enum:
+      icon = <FontIcon iconName="BulletedList" style={styles.icon} />;
       break;
   }
 
@@ -32,39 +47,48 @@ const renderIcon = (kind: CompletionItemKind | undefined): JSX.Element => {
 const renderLabelWithCharacterHighlights = (
   matches: FuseJsMatch[]
 ): JSX.Element => {
-  const renderMatch = (match: FuseJsMatch): JSX.Element => {
+  const renderMatch = (
+    match: FuseJsMatch,
+    segmentIndex: number
+  ): JSX.Element => {
     let firstIndex = 0;
     const lastIndex = match.value.length;
 
-    const items = match.indices.map((m) => {
+    const items = match.indices.map((m, spanIndex) => {
       const firstSpan = <span>{match.value.slice(firstIndex, m[0])}</span>;
       const secondSpan = (
-        <span style={{ color: 'blue', justifyContent: 'center' }}>
+        <span style={{ color: 'blue' }}>
           {match.value.slice(m[0], m[1] + 1)}
         </span>
       );
 
       firstIndex = m[1] + 1;
       return (
-        <>
+        <React.Fragment key={`segment-${segmentIndex}-span-${spanIndex}`}>
           {firstSpan}
           {secondSpan}
-        </>
+        </React.Fragment>
       );
     });
 
-    items.push(<span>{match.value.slice(firstIndex, lastIndex)}</span>);
+    items.push(
+      <span key={`segment-${segmentIndex}-span-final`}>
+        {match.value.slice(firstIndex, lastIndex)}
+      </span>
+    );
 
-    return <>{items}</>;
+    return (
+      <React.Fragment key={`segment-${segmentIndex}`}>{items}</React.Fragment>
+    );
   };
 
-  return <> {matches.map((match) => renderMatch(match))} </>;
+  return <> {matches.map(renderMatch)} </>;
 };
 
 const renderDocumentation = (
   documentation: string | MarkupContent | undefined
 ) => {
-  return <span style={{ maxWidth: '200px' }}>{documentation}</span>;
+  return <span>{documentation}</span>;
 };
 
 const CompletionElement = (props: {
@@ -74,6 +98,8 @@ const CompletionElement = (props: {
 }) => {
   const { completionItem, isSelected, onClickCompletionItem } = props;
 
+  const additionalStyles = isSelected ? styles.selectedElement : {};
+
   return (
     <TooltipHost
       content={renderDocumentation(completionItem.documentation)}
@@ -81,20 +107,17 @@ const CompletionElement = (props: {
     >
       <div
         style={{
-          height: '32px',
-          cursor: 'pointer',
-          padding: '0 4px',
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          backgroundColor: isSelected ? '#ddd' : '',
+          ...styles.completionElement,
+          ...additionalStyles,
         }}
         onClick={onClickCompletionItem}
       >
         {renderIcon(completionItem.kind)}
-        {completionItem.data.matches
-          ? renderLabelWithCharacterHighlights(completionItem.data.matches)
-          : completionItem.label}
+        <div style={styles.text}>
+          {completionItem.data.matches
+            ? renderLabelWithCharacterHighlights(completionItem.data.matches)
+            : completionItem.label}
+        </div>
       </div>
     </TooltipHost>
   );

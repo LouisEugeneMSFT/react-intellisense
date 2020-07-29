@@ -2,8 +2,24 @@
 // Licensed under the MIT License.
 
 import CompletionElement from 'intellisense/components/CompletionElement';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { CompletionItem } from 'vscode-languageserver-types';
+
+const styles: Record<string, CSSProperties> = {
+  completionList: {
+    position: 'absolute',
+    top: 32,
+    left: 0,
+    maxHeight: '300px',
+    width: '100%',
+    backgroundColor: 'white',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    boxShadow:
+      '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+    zIndex: 2000,
+  },
+};
 
 const CompletionList = React.forwardRef<
   HTMLDivElement,
@@ -16,22 +32,7 @@ const CompletionList = React.forwardRef<
   const { completionItems, selectedItem, onClickCompletionItem } = props;
 
   return (
-    <div
-      ref={ref}
-      style={{
-        position: 'absolute',
-        top: 32,
-        left: 0,
-        maxHeight: '300px',
-        width: '100%',
-        backgroundColor: 'white',
-        overflowY: 'auto',
-        overflowX: 'hidden',
-        boxShadow:
-          '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-        zIndex: 2000,
-      }}
-    >
+    <div ref={ref} style={styles.completionList}>
       {completionItems.map((completionItem, index) => (
         <CompletionElement
           key={index}

@@ -14,7 +14,7 @@
     "reconnecting-websocket": "^4.4.0",
     "vscode-ws-jsonrpc": "^0.2.0",
     "websocket": "^1.0.31",
-    "office-ui-fabric-react": "^7.88.1"
+    "office-ui-fabric-react": "^7.121.11"
   },
   "scripts": {
     "dev": "set PORT=3006 && react-app-rewired start",
